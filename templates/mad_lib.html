@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <section class="centered">
+    {% if session['still_filling'] == True %}
+      <form action="/" method="POST">
+        <h2>Mad Libs!</h2>
+        {% for (question, values) in mlib_dict.items() %}
+          <label>{{question[:-1]}}: <input type="string" name="answer{{values[1]}}" required/></label><br>
+        {% endfor %}
+        <section class="centered">
+          <button>Submit</button>
+        </section>
+      </form>
+      <hr>
+      <p class="feedback">{{output}}</p>
+    {% endif %}
+    {% if session['still_filling'] == False %}
+      <form action="/" method="GET">
+        <hr>
+        <p id="result">{{output}}</p>
+        <section class="centered">
+          <button action="/" method="GET">Play Again</button>
+        </section>
+      </form>
+    {% endif %}
+  </section>
+{% endblock %}
